@@ -1,0 +1,2996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shanan Perfumes - Premium Fragrances</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0a0a0a;
+            --secondary: #d4af37;
+            --accent: #b8941f;
+            --light: #1a1a1a;
+            --dark: #000000;
+            --text: #e0e0e0;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            --gradient: linear-gradient(135deg, #d4af37 0%, #b8941f 100%);
+        }
+
+        [data-theme="light"] {
+            --primary: #ffffff;
+            --secondary: #d4af37;
+            --accent: #b8941f;
+            --light: #f5f5f5;
+            --dark: #e0e0e0;
+            --text: #333333;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            background-color: var(--primary);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Welcome Screen */
+        .welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url('https://images.unsplash.com/photo-1595428774223-ef52624120d2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            transition: opacity 0.5s ease;
+        }
+
+        [data-theme="light"] .welcome-screen {
+            background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)), url('https://images.unsplash.com/photo-1595428774223-ef52624120d2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80');
+        }
+
+        .welcome-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .welcome-logo {
+            font-size: 5rem;
+            font-weight: 700;
+            color: var(--secondary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            letter-spacing: 4px;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .welcome-logo .crown {
+            font-size: 10rem;
+            margin-right: 30px;
+            color: var(--secondary);
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.7);
+            line-height: 1;
+        }
+
+        .welcome-btn {
+            background: var(--gradient);
+            color: var(--primary);
+            border: none;
+            padding: 20px 50px;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+            letter-spacing: 2px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .welcome-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.6);
+        }
+
+        /* Theme Switcher */
+        .theme-switcher {
+            position: fixed;
+            top: 20px;
+            right: 80px;
+            z-index: 1001;
+            display: flex;
+            gap: 8px;
+            background: var(--light);
+            padding: 8px;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .theme-btn {
+            background: transparent;
+            color: var(--text);
+            border: none;
+            padding: 6px 12px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+        }
+
+        .theme-btn.active {
+            background: var(--secondary);
+            color: var(--primary);
+        }
+
+        .theme-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--primary);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            display: none;
+        }
+
+        .main-header {
+            padding: 15px 0;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--secondary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            letter-spacing: 3px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .logo .crown {
+            font-size: 5.6rem;
+            margin-right: 15px;
+            color: var(--secondary);
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+            line-height: 1;
+        }
+
+        .search-bar {
+            flex: 1;
+            max-width: 500px;
+            margin: 0 30px;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 14px 20px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 50px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: var(--light);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+        }
+
+        .search-bar button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--gradient);
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .search-bar button:hover {
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--light);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            margin-top: 5px;
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+            z-index: 1000;
+        }
+
+        .search-results.active {
+            display: block;
+        }
+
+        .search-result-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .search-result-item:hover {
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .search-result-item img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .search-result-item .product-info {
+            flex: 1;
+            padding: 0;
+        }
+
+        .search-result-item h4 {
+            color: var(--secondary);
+            margin-bottom: 5px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .search-result-item .brand {
+            color: var(--text);
+            opacity: 0.7;
+            font-size: 0.9rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+        }
+
+        .header-actions a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 1.3rem;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .header-actions a:hover {
+            color: var(--text);
+            transform: translateY(-2px);
+        }
+
+        .cart-count, .wishlist-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--secondary);
+            color: var(--primary);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        nav {
+            padding: 15px 0;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 600;
+            transition: color 0.3s;
+            padding: 8px 0;
+            position: relative;
+            font-size: 1.05rem;
+            letter-spacing: 1px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--secondary);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1595428774223-ef52624120d2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 80px 0 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            display: none;
+        }
+
+        [data-theme="light"] .hero {
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('https://images.unsplash.com/photo-1595428774223-ef52624120d2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80');
+            color: #333;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 25px;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--secondary);
+            font-family: 'Playfair Display', serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin: 0 auto 40px;
+            max-width: 600px;
+            opacity: 0.9;
+            letter-spacing: 1px;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--gradient);
+            color: var(--primary);
+            padding: 16px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1.05rem;
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+            letter-spacing: 1px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--secondary);
+            color: var(--secondary);
+            box-shadow: none;
+        }
+
+        .btn-outline:hover {
+            background: var(--secondary);
+            color: var(--primary);
+        }
+
+        /* Products Section */
+        .section {
+            padding: 50px 0;
+            display: none;
+        }
+
+        .products-section {
+            display: block !important;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            font-size: 2.8rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .section-title p {
+            color: var(--text);
+            opacity: 0.7;
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background-color: var(--light);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.4s ease;
+            position: relative;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+
+        .product-img {
+            height: 300px;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(135deg, var(--light) 0%, var(--dark) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-img img {
+            transform: scale(1.05);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--gradient);
+            color: var(--primary);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            z-index: 2;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .wishlist-btn {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            border: none;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 2;
+            font-size: 1.3rem;
+        }
+
+        .wishlist-btn:hover {
+            background: rgba(0, 0, 0, 0.9);
+            transform: scale(1.1);
+        }
+
+        .wishlist-btn.active {
+            background: #e74c3c;
+            color: white;
+            animation: heartBeat 0.6s ease;
+        }
+
+        .wishlist-btn.active:hover {
+            background: #c0392b;
+        }
+
+        @keyframes heartBeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.3); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .product-info {
+            padding: 25px;
+        }
+
+        .product-info h3 {
+            margin-bottom: 8px;
+            color: var(--secondary);
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .brand {
+            color: var(--text);
+            opacity: 0.7;
+            font-size: 1rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .product-rating {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .product-rating span {
+            color: var(--text);
+            opacity: 0.7;
+            font-size: 0.9rem;
+            margin-left: 5px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .rating-stars {
+            display: flex;
+            gap: 2px;
+        }
+
+        .rating-stars .star {
+            color: #ddd;
+            cursor: pointer;
+            transition: color 0.2s;
+            font-size: 1.1rem;
+        }
+
+        .rating-stars .star.active,
+        .rating-stars .star:hover {
+            color: var(--secondary);
+        }
+
+        .product-description {
+            margin-bottom: 20px;
+            color: var(--text);
+            opacity: 0.8;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .size-selector {
+            margin-bottom: 20px;
+        }
+
+        .size-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .size-option {
+            padding: 8px 12px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.85rem;
+            font-weight: 500;
+            font-family: 'Inter', sans-serif;
+            text-align: center;
+            flex: 1;
+            min-width: 60px;
+        }
+
+        .size-option:hover {
+            border-color: var(--secondary);
+        }
+
+        .size-option.selected {
+            background: var(--gradient);
+            color: var(--primary);
+            border-color: var(--secondary);
+        }
+
+        .sprays-info {
+            font-size: 0.8rem;
+            color: var(--text);
+            opacity: 0.7;
+            margin-top: 4px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .product-price {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .price {
+            font-weight: 800;
+            font-size: 1.6rem;
+            color: var(--secondary);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .currency {
+            font-size: 1rem;
+            margin-left: 2px;
+        }
+
+        .add-to-cart {
+            background: var(--gradient);
+            color: var(--primary);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 1px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .add-to-cart:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .add-to-cart.added {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            animation: bounce 0.6s ease;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 60%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            80% { transform: translateY(-5px); }
+        }
+
+        /* Wishlist & Cart Pages */
+        .wishlist-page, .cart-page {
+            display: none;
+            padding: 100px 0;
+        }
+
+        .wishlist-page.active, .cart-page.active {
+            display: block;
+        }
+
+        .empty-wishlist, .empty-cart {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .empty-wishlist i, .empty-cart i {
+            font-size: 4rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+
+        .empty-wishlist h3, .empty-cart h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .empty-wishlist p, .empty-cart p {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .cart-total {
+            background: var(--light);
+            padding: 30px;
+            border-radius: 16px;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .cart-total h3 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .total-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 20px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .checkout-btn {
+            width: 50%;
+            padding: 12px;
+            font-size: 0.9rem;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .remove-from-cart {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            width: auto;
+        }
+
+        .remove-from-cart:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 15px 0;
+        }
+
+        .quantity-btn {
+            background: var(--secondary);
+            color: var(--primary);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .quantity-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .quantity-display {
+            font-size: 1.1rem;
+            font-weight: bold;
+            min-width: 25px;
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .cart-product-info {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .cart-product-info .size-info {
+            color: var(--text);
+            opacity: 0.7;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        /* Contacts Section */
+        .contacts {
+            background-color: var(--light);
+            position: relative;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            display: none;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 50px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-info h3 {
+            margin-bottom: 25px;
+            color: var(--secondary);
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .contact-details {
+            list-style: none;
+            margin-bottom: 40px;
+        }
+
+        .contact-details li {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .contact-details i {
+            color: var(--secondary);
+            margin-right: 15px;
+            margin-top: 5px;
+            font-size: 1.2rem;
+        }
+
+        .contact-details div {
+            flex: 1;
+        }
+
+        .contact-details strong {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--secondary);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .contact-details span, .contact-details a {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            border-radius: 50%;
+            color: var(--secondary);
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 1.2rem;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .social-links a:hover {
+            background: var(--gradient);
+            color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .contact-form {
+            background-color: var(--primary);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .contact-form h3 {
+            margin-bottom: 25px;
+            color: var(--secondary);
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--secondary);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px 20px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: var(--light);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+        }
+
+        .form-group textarea {
+            height: 140px;
+            resize: vertical;
+        }
+
+        /* Telegram Link Styles */
+        .telegram-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .telegram-link:hover {
+            color: var(--text);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: var(--text);
+            padding: 70px 0 30px;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            display: none;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 12px;
+            font-weight: 700;
+            color: var(--secondary);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--gradient);
+            border-radius: 3px;
+        }
+
+        .footer-column p {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--text);
+            opacity: 0.7;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 25px 0 0;
+            text-align: center;
+            color: var(--text);
+            opacity: 0.5;
+            font-size: 0.9rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Checkout Modal */
+        .checkout-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            overflow-y: auto;
+        }
+
+        .checkout-modal.active {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 40px 20px;
+        }
+
+        .checkout-container {
+            background-color: var(--light);
+            border-radius: 16px;
+            padding: 30px;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: var(--shadow);
+            position: relative;
+            margin-top: 40px;
+        }
+
+        .checkout-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .checkout-header h2 {
+            color: var(--secondary);
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+        }
+
+        .close-checkout {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .close-checkout:hover {
+            color: var(--secondary);
+            transform: scale(1.1);
+        }
+
+        .checkout-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .checkout-steps::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: rgba(212, 175, 55, 0.3);
+            z-index: 1;
+        }
+
+        .checkout-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 8px;
+            transition: all 0.3s;
+        }
+
+        .checkout-step.active .step-number {
+            background-color: var(--secondary);
+            color: var(--primary);
+            border-color: var(--secondary);
+        }
+
+        .step-label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .checkout-step.active .step-label {
+            color: var(--secondary);
+        }
+
+        .checkout-content {
+            margin-bottom: 30px;
+        }
+
+        .checkout-section {
+            display: none;
+        }
+
+        .checkout-section.active {
+            display: block;
+        }
+
+        .section-title {
+            margin-bottom: 20px;
+            color: var(--secondary);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+        }
+
+        .payment-methods {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .payment-method {
+            flex: 1;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .payment-method:hover {
+            border-color: var(--secondary);
+        }
+
+        .payment-method.selected {
+            border-color: var(--secondary);
+            background-color: rgba(212, 175, 55, 0.1);
+        }
+
+        .payment-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+
+        .payment-method h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .payment-method p {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .cash-warning {
+            color: #e74c3c;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .location-selection {
+            margin-bottom: 30px;
+        }
+
+        .location-map {
+            height: 300px;
+            background-color: var(--primary);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .map-placeholder {
+            text-align: center;
+            color: var(--text);
+            opacity: 0.7;
+        }
+
+        .map-placeholder i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+
+        .location-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .country-select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 6px;
+            background: var(--light);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+        }
+
+        .city-select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 6px;
+            background: var(--light);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+        }
+
+        .delivery-status {
+            padding: 10px;
+            border-radius: 6px;
+            text-align: center;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .delivery-available {
+            background-color: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+
+        .delivery-not-available {
+            background-color: rgba(231, 76, 60, 0.2);
+            color: #e74c3c;
+        }
+
+        .card-payment-form, .cash-payment-info {
+            display: none;
+        }
+
+        .payment-form.active {
+            display: block;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        .checkout-summary {
+            background-color: var(--primary);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            color: var(--secondary);
+        }
+
+        .checkout-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .btn-back {
+            background: transparent;
+            border: 2px solid var(--secondary);
+            color: var(--secondary);
+            padding: 12px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-back:hover {
+            background: var(--secondary);
+            color: var(--primary);
+        }
+
+        .btn-pay {
+            background: var(--gradient);
+            color: var(--primary);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 700;
+            font-family: 'Inter', sans-serif;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-pay:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-pay:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .success-message {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .success-message i {
+            font-size: 4rem;
+            color: #10b981;
+            margin-bottom: 20px;
+        }
+
+        .success-message h3 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .products {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+
+            .welcome-logo {
+                font-size: 4rem;
+            }
+
+            .welcome-logo .crown {
+                font-size: 8rem;
+            }
+
+            .logo {
+                font-size: 2.2rem;
+            }
+
+            .logo .crown {
+                font-size: 4.4rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .logo {
+                margin-bottom: 0;
+            }
+
+            .search-bar {
+                width: 100%;
+                max-width: 100%;
+                margin: 0;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+
+            .hero {
+                padding: 60px 0 20px;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .section {
+                padding: 40px 0;
+            }
+
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .theme-switcher {
+                top: 15px;
+                right: 70px;
+            }
+
+            .welcome-logo {
+                font-size: 3rem;
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .welcome-logo .crown {
+                font-size: 6rem;
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+
+            .logo {
+                font-size: 1.8rem;
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .logo .crown {
+                font-size: 3.6rem;
+                margin-right: 0;
+                margin-bottom: 5px;
+            }
+
+            .payment-methods {
+                flex-direction: column;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .checkout-actions {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn-back, .btn-pay {
+                width: 100%;
+            }
+
+            .checkout-btn {
+                width: 70%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .product-img {
+                height: 250px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .size-options {
+                justify-content: center;
+            }
+
+            .welcome-logo {
+                font-size: 2.2rem;
+            }
+
+            .welcome-logo .crown {
+                font-size: 4.4rem;
+            }
+
+            .theme-switcher {
+                top: 10px;
+                right: 60px;
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .theme-btn {
+                padding: 4px 8px;
+                font-size: 0.7rem;
+            }
+
+            .checkout-btn {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body data-theme="dark">
+    <!-- Welcome Screen -->
+    <div class="welcome-screen" id="welcomeScreen">
+        <div class="welcome-logo">
+            <span class="crown">♔</span>
+            SHANAN PERFUMES
+        </div>
+        <button class="welcome-btn" onclick="enterShop()">SHOP NOW</button>
+    </div>
+
+    <!-- Theme Switcher -->
+    <div class="theme-switcher">
+        <button class="theme-btn active" onclick="setTheme('light')">Light</button>
+        <button class="theme-btn" onclick="setTheme('dark')">Dark</button>
+    </div>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="main-header">
+            <div class="container">
+                <div class="header-content">
+                    <a href="#" class="logo">
+                        <span class="crown">♔</span>
+                        SHANAN PERFUMES
+                    </a>
+                    <div class="search-bar">
+                        <input type="text" id="searchInput" placeholder="Search for perfumes...">
+                        <button><i class="fas fa-search"></i></button>
+                        <div class="search-results" id="searchResults"></div>
+                    </div>
+                    <div class="header-actions">
+                        <a href="#" id="wishlist-icon">
+                            <i class="fas fa-heart"></i>
+                            <span class="wishlist-count">0</span>
+                        </a>
+                        <a href="#" id="cart-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count">0</span>
+                        </a>
+                        <a href="#" onclick="showHomePage()"><i class="fas fa-user"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav>
+            <div class="container">
+                <ul class="nav-links">
+                    <li><a href="#" class="active" onclick="showHomePage()">Home</a></li>
+                    <li><a href="#contacts" onclick="showContacts()">Contacts</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section class="hero" id="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Exclusive Fragrances</h1>
+                    <p>Discover our curated collection of premium perfumes that embody luxury, elegance, and sophistication.</p>
+                    <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                        <a href="#products" class="btn" onclick="showProducts()">Explore Collection</a>
+                        <a href="#contacts" class="btn btn-outline" onclick="showContacts()">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Products -->
+        <section class="section products-section" id="products">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Premium Collection</h2>
+                    <p>Experience the essence of luxury with our exclusive fragrances</p>
+                </div>
+                <div class="products">
+                    <!-- Products will be here -->
+                    <div class="product-card" data-product-id="1" data-product-name="Eros-Flame" data-product-brand="VERSACE">
+                        <div class="product-img">
+                            <img src="https://www.myperfumeshop.com.au/cdn/shop/files/versace_eros_flame_banner_-_Google_Search_-_11.jpg?v=1729292174&width=1024" alt="VERSACE EROS FLAME">
+                            <span class="product-badge">Bestseller</span>
+                            <button class="wishlist-btn" onclick="toggleWishlist(1)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="product-info">
+                            <h3>Eros-Flame</h3>
+                            <div class="brand">VERSACE</div>
+                            
+                            <div class="product-rating">
+                                <div class="rating-stars" data-product-id="1">
+                                    <span class="star" data-rating="1">★</span>
+                                    <span class="star" data-rating="2">★</span>
+                                    <span class="star" data-rating="3">★</span>
+                                    <span class="star" data-rating="4">★</span>
+                                    <span class="star" data-rating="5">★</span>
+                                </div>
+                                <span class="rating-text">Click to rate</span>
+                            </div>
+                            
+                            <p class="product-description">A captivating fragrance with notes of bergamot, cedarwood, and amber. Perfect for evening occasions.</p>
+                            
+                            <div class="size-selector">
+                                <label>Select Size:</label>
+                                <div class="size-options">
+                                    <div class="size-option" data-size="2" data-price="24" data-sprays="30">
+                                        2 ml
+                                        <div class="sprays-info">30 sprays</div>
+                                    </div>
+                                    <div class="size-option" data-size="3" data-price="36" data-sprays="45">
+                                        3 ml
+                                        <div class="sprays-info">45 sprays</div>
+                                    </div>
+                                    <div class="size-option" data-size="5" data-price="60" data-sprays="75">
+                                        5 ml
+                                        <div class="sprays-info">75 sprays</div>
+                                    </div>
+                                    <div class="size-option" data-size="10" data-price="120" data-sprays="150">
+                                        10 ml
+                                        <div class="sprays-info">150 sprays</div>
+                                    </div>
+                                    <div class="size-option" data-size="15" data-price="180" data-sprays="225">
+                                        15 ml
+                                        <div class="sprays-info">225 sprays</div>
+                                    </div>
+                                    <div class="size-option" data-size="30" data-price="360" data-sprays="450">
+                                        30 ml
+                                        <div class="sprays-info">450 sprays</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="product-price">
+                                <div>
+                                    <span class="price">24<span class="currency"> lei</span></span>
+                                </div>
+                                <button class="add-to-cart" onclick="addToCart(1)">
+                                    <i class="fas fa-shopping-cart"></i> Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card" data-product-id="2" data-product-name="Stronger With You Intensely" data-product-brand="EMPORIO ARMANI">
+                        <div class="product-img">
+                            <img src="https://www.faces.ae/dw/image/v2/BJSM_PRD/on/demandware.static/-/Sites-faces-master-catalog/default/dw55c236b4/images/001717204664_3.jpg?sw=800&sh=800" alt="STRONGER WITH YOU INTENSELY">
+                            <span class="product-badge">New</span>
+                            <button class="wishlist-btn" onclick="toggleWishlist(2)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="product-info">
+                            <h3>Stronger With You Intensely</h3>
+                            <div class="brand">EMPORIO ARMANI</div>
+                            
+                            <div class="product-rating">
+                                <div class="rating-stars" data-product-id="2">
+                                    <span class="star" data-rating="1">★</span>
+                                    <span class="star" data-rating="2">★</span>
+                                    <span class="star" data-rating="3">★</span>
+                                    <span class="star" data-rating="4">★</span>
+                                    <span class="star" data-rating="5">★</span>
+                                </div>
+                                <span class="rating-text">Click to rate</span>
+                            </div>
+                            
+                            <p class="product-description">An intense fragrance with notes of vanilla, chestnut, and sage. Bold and captivating for the modern man.</p>
+                            
+                            <div class="size-selector">
+                                <label>Select Size:</label>
+                                <div class="size-options">
+                                    <div class="size-option" data-size="2" data-price="26" data-sprays="30">
+                                        2 ml
+                                        <div class="sprays-info">30 sprays</div>
+                                    </div>
+                                    <div class="size-option" data-size="3" data-price="39" data-sprays="45">
+                                        3 ml
+                                        <div class="sprays-info">45 sprays</div>
+                                    </div>
+                                    <div class="size-option" data-size="5" data-price="65" data-sprays="75">
+                                        5 ml
+                                        <div class="sprays-info">75 sprays</div>
+                                    </div>
+                                    <div class="size-option" data-size="10" data-price="130" data-sprays="150">
+                                        10 ml
+                                        <div class="sprays-info">150 sprays</div>
+                                    </div>
+                                    <div class="size-option" data-size="15" data-price="195" data-sprays="225">
+                                        15 ml
+                                        <div class="sprays-info">225 sprays</div>
+                                    </div>
+                                    <div class="size-option" data-size="30" data-price="390" data-sprays="450">
+                                        30 ml
+                                        <div class="sprays-info">450 sprays</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="product-price">
+                                <div>
+                                    <span class="price">26<span class="currency"> lei</span></span>
+                                </div>
+                                <button class="add-to-cart" onclick="addToCart(2)">
+                                    <i class="fas fa-shopping-cart"></i> Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contacts Section -->
+        <section class="section contacts" id="contacts">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Contact Us</h2>
+                    <p>Get in touch with our fragrance experts</p>
+                </div>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <h3>Shanan Perfumes Store</h3>
+                        <ul class="contact-details">
+                            <li>
+                                <i class="fas fa-phone"></i>
+                                <div>
+                                    <strong>Phone:</strong>
+                                    +40738485114
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-envelope"></i>
+                                <div>
+                                    <strong>Email:</strong>
+                                    nandreevic89@gmail.com
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fab fa-telegram"></i>
+                                <div>
+                                    <strong>Telegram:</strong>
+                                    <a href="https://t.me/Shanan220" class="telegram-link">
+                                        @Shanan220
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                        <h3>Follow Us</h3>
+                        <div class="social-links">
+                            <a href="https://www.tiktok.com/@userzef9k19ukj?_t=ZS-90cWf8gjoO1&_r=1" target="_blank"><i class="fab fa-tiktok"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-telegram"></i></a>
+                        </div>
+                    </div>
+                    <div class="contact-form">
+                        <h3>Send Us a Message</h3>
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <label for="name">Your Name</label>
+                                <input type="text" id="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Your Email</label>
+                                <input type="email" id="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Subject</label>
+                                <input type="text" id="subject" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Your Message</label>
+                                <textarea id="message" required></textarea>
+                            </div>
+                            <button type="submit" class="btn">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Wishlist Page -->
+    <section class="wishlist-page" id="wishlist-page">
+        <div class="container">
+            <div class="section-title">
+                <h2>My Wishlist</h2>
+                <p>Your favorite perfumes</p>
+            </div>
+            <div id="wishlist-products" class="products">
+                <!-- Wishlist products will be dynamically added here -->
+            </div>
+            <div id="empty-wishlist" class="empty-wishlist">
+                <i class="far fa-heart"></i>
+                <h3>Your wishlist is empty</h3>
+                <p>Add some perfumes to your wishlist by clicking the heart icon</p>
+                <a href="#products" class="btn" onclick="showProducts()">Browse Products</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Page -->
+    <section class="cart-page" id="cart-page">
+        <div class="container">
+            <div class="section-title">
+                <h2>Shopping Cart</h2>
+                <p>Your selected perfumes</p>
+            </div>
+            <div id="cart-products" class="products">
+                <!-- Cart products will be dynamically added here -->
+            </div>
+            <div id="empty-cart" class="empty-cart">
+                <i class="fas fa-shopping-cart"></i>
+                <h3>Your cart is empty</h3>
+                <p>Add some perfumes to your cart to continue shopping</p>
+                <a href="#products" class="btn" onclick="showProducts()">Browse Products</a>
+            </div>
+            <div id="cart-total" class="cart-total" style="display: none;">
+                <h3>Order Summary</h3>
+                <div class="total-price">Total: <span id="total-amount">0</span> lei</div>
+                <button class="btn checkout-btn" onclick="openCheckout()">Proceed to Checkout</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Shanan Perfumes</h3>
+                    <p>We offer a wide range of original perfumes from leading global brands at affordable prices.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" onclick="showHomePage()">Home</a></li>
+                        <li><a href="#contacts" onclick="showContacts()">Contacts</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Shanan Perfumes. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Checkout Modal -->
+    <div class="checkout-modal" id="checkoutModal">
+        <div class="checkout-container">
+            <div class="checkout-header">
+                <h2>Checkout</h2>
+                <button class="close-checkout" onclick="closeCheckout()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="checkout-steps">
+                <div class="checkout-step active" data-step="1">
+                    <div class="step-number">1</div>
+                    <div class="step-label">Payment Method</div>
+                </div>
+                <div class="checkout-step" data-step="2">
+                    <div class="step-number">2</div>
+                    <div class="step-label">Location</div>
+                </div>
+                <div class="checkout-step" data-step="3">
+                    <div class="step-number">3</div>
+                    <div class="step-label">Payment</div>
+                </div>
+                <div class="checkout-step" data-step="4">
+                    <div class="step-number">4</div>
+                    <div class="step-label">Confirmation</div>
+                </div>
+            </div>
+            
+            <div class="checkout-content">
+                <!-- Step 1: Payment Method Selection -->
+                <div class="checkout-section active" id="step1">
+                    <h3 class="section-title">Select Payment Method</h3>
+                    <div class="payment-methods">
+                        <div class="payment-method" data-method="card">
+                            <div class="payment-icon">
+                                <i class="far fa-credit-card"></i>
+                            </div>
+                            <h3>Credit/Debit Card</h3>
+                            <p>Pay securely with your card</p>
+                        </div>
+                        <div class="payment-method" data-method="cash">
+                            <div class="payment-icon">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <h3>Cash on Delivery</h3>
+                            <p>Pay when you receive your order</p>
+                            <div class="cash-warning" id="cashWarning">Available only in Constanta</div>
+                        </div>
+                    </div>
+                    
+                    <div class="checkout-actions">
+                        <button class="btn-back" onclick="closeCheckout()">Cancel</button>
+                        <button class="btn-pay" onclick="goToStep(2)">Continue</button>
+                    </div>
+                </div>
+                
+                <!-- Step 2: Location Selection -->
+                <div class="checkout-section" id="step2">
+                    <h3 class="section-title">Select Your Location</h3>
+                    
+                    <div class="location-selection">
+                        <div class="location-map">
+                            <div class="map-placeholder">
+                                <i class="fas fa-map-marked-alt"></i>
+                                <p>Romania Map - Select your city</p>
+                                <small>Click on the map to select your location</small>
+                            </div>
+                        </div>
+                        
+                        <div class="location-options">
+                            <div class="form-group">
+                                <label for="country">Country</label>
+                                <select class="country-select" id="country">
+                                    <option value="">Select Country</option>
+                                    <option value="Romania" selected>Romania</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="city">City</label>
+                                <select class="city-select" id="city">
+                                    <option value="">Select City</option>
+                                    <!-- Romanian cities will be populated here -->
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="address">Full Address</label>
+                                <input type="text" id="address" placeholder="Enter your full address">
+                            </div>
+                            
+                            <div id="deliveryStatus" class="delivery-status" style="display: none;">
+                                <!-- Delivery status will be shown here -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="checkout-actions">
+                        <button class="btn-back" onclick="goToStep(1)">Back</button>
+                        <button class="btn-pay" id="continueToPayment" onclick="goToStep(3)">Continue</button>
+                    </div>
+                </div>
+                
+                <!-- Step 3: Payment Details -->
+                <div class="checkout-section" id="step3">
+                    <h3 class="section-title" id="paymentTitle">Payment Details</h3>
+                    
+                    <!-- Card Payment Form -->
+                    <div class="card-payment-form payment-form" id="cardPaymentForm">
+                        <div class="form-group">
+                            <label for="cardNumber">Card Number</label>
+                            <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="expiryDate">Expiry Date</label>
+                                <input type="text" id="expiryDate" placeholder="MM/YY">
+                            </div>
+                            <div class="form-group">
+                                <label for="cvv">CVV</label>
+                                <input type="text" id="cvv" placeholder="123">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="cardName">Name on Card</label>
+                            <input type="text" id="cardName" placeholder="John Doe">
+                        </div>
+                    </div>
+                    
+                    <!-- Cash Payment Info -->
+                    <div class="cash-payment-info payment-form" id="cashPaymentInfo">
+                        <div class="checkout-summary">
+                            <p>You've selected Cash on Delivery. Your order will be delivered to:</p>
+                            <p id="deliveryAddress"></p>
+                            <p>You'll pay <span id="cashTotalAmount">0</span> lei when you receive your order.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="checkout-summary">
+                        <div class="summary-item">
+                            <span>Subtotal:</span>
+                            <span id="checkoutSubtotal">0 lei</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Shipping:</span>
+                            <span id="checkoutShipping">0 lei</span>
+                        </div>
+                        <div class="summary-total">
+                            <span>Total:</span>
+                            <span id="checkoutTotal">0 lei</span>
+                        </div>
+                    </div>
+                    
+                    <div class="checkout-actions">
+                        <button class="btn-back" onclick="goToStep(2)">Back</button>
+                        <button class="btn-pay" id="payButton" onclick="processPayment()">Pay Now</button>
+                    </div>
+                </div>
+                
+                <!-- Step 4: Confirmation -->
+                <div class="checkout-section" id="step4">
+                    <div class="success-message">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>Payment Successful!</h3>
+                        <p>Thank you for your order. Your payment has been processed successfully.</p>
+                        <p>Order ID: <strong id="orderId">SHN-2023-001</strong></p>
+                        <p>You will receive a confirmation email shortly.</p>
+                        
+                        <div class="checkout-actions" style="margin-top: 30px;">
+                            <button class="btn-pay" onclick="closeCheckout()">Continue Shopping</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data storage
+        let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let ratings = JSON.parse(localStorage.getItem('ratings')) || {};
+        
+        // DOM elements
+        const welcomeScreen = document.getElementById('welcomeScreen');
+        const header = document.getElementById('header');
+        const hero = document.getElementById('hero');
+        const productsSection = document.getElementById('products');
+        const contactsSection = document.getElementById('contacts');
+        const footer = document.querySelector('footer');
+        const wishlistCount = document.querySelector('.wishlist-count');
+        const cartCount = document.querySelector('.cart-count');
+        const wishlistIcon = document.getElementById('wishlist-icon');
+        const cartIcon = document.getElementById('cart-icon');
+        const wishlistPage = document.getElementById('wishlist-page');
+        const cartPage = document.getElementById('cart-page');
+        const mainContent = document.getElementById('main-content');
+        const searchInput = document.getElementById('searchInput');
+        const searchResults = document.getElementById('searchResults');
+
+        // Checkout functionality
+        let currentStep = 1;
+        let selectedPaymentMethod = '';
+        let selectedCity = '';
+        let selectedCountry = 'Romania';
+        let orderData = {
+            paymentMethod: '',
+            country: '',
+            city: '',
+            address: '',
+            cardDetails: {},
+            total: 0
+        };
+
+        // Romanian cities list
+        const romanianCities = [
+            "Alba Iulia", "Arad", "Pitești", "Bacău", "Oradea", "Bistrița", "Botoșani", "Brașov", "Brăila", "Buzău",
+            "Reșița", "Călărași", "Cluj-Napoca", "Constanța", "Sfântu Gheorghe", "Târgoviște", "Craiova", "Galați",
+            "Giurgiu", "Târgu Jiu", "Miercurea Ciuc", "Deva", "Slobozia", "Iași", "București", "Baia Mare", "Drobeta-Turnu Severin",
+            "Târgu Mureș", "Piatra Neamț", "Slatina", "Ploiești", "Satu Mare", "Zalău", "Sibiu", "Suceava", "Alexandria",
+            "Timisoara", "Tulcea", "Vaslui", "Râmnicu Vâlcea", "Focșani"
+        ].sort();
+
+        // Enter shop function
+        function enterShop() {
+            welcomeScreen.classList.add('hidden');
+            setTimeout(() => {
+                welcomeScreen.style.display = 'none';
+                header.style.display = 'block';
+                hero.style.display = 'block';
+                footer.style.display = 'block';
+                showHomePage();
+            }, 500);
+        }
+
+        // Search functionality - shows only one specific perfume
+        function initSearch() {
+            const products = [
+                {
+                    id: 1,
+                    name: 'Eros-Flame',
+                    brand: 'VERSACE',
+                    image: 'https://www.myperfumeshop.com.au/cdn/shop/files/versace_eros_flame_banner_-_Google_Search_-_11.jpg?v=1729292174&width=1024',
+                    description: 'A captivating fragrance with notes of bergamot, cedarwood, and amber.'
+                },
+                {
+                    id: 2,
+                    name: 'Stronger With You Intensely',
+                    brand: 'EMPORIO ARMANI',
+                    image: 'https://www.faces.ae/dw/image/v2/BJSM_PRD/on/demandware.static/-/Sites-faces-master-catalog/default/dw55c236b4/images/001717204664_3.jpg?sw=800&sh=800',
+                    description: 'An intense fragrance with notes of vanilla, chestnut, and sage.'
+                }
+            ];
+
+            searchInput.addEventListener('input', function() {
+                const query = this.value.toLowerCase().trim();
+                searchResults.innerHTML = '';
+
+                if (query.length > 0) {
+                    // Show only one specific product based on search
+                    let foundProduct = null;
+                    
+                    if (query.includes('eros') || query.includes('flame') || query.includes('versace')) {
+                        foundProduct = products[0]; // Eros-Flame
+                    } else if (query.includes('stronger') || query.includes('you') || query.includes('armani')) {
+                        foundProduct = products[1]; // Stronger With You
+                    }
+
+                    if (foundProduct) {
+                        searchResults.classList.add('active');
+                        const resultItem = document.createElement('div');
+                        resultItem.className = 'search-result-item';
+                        resultItem.innerHTML = `
+                            <img src="${foundProduct.image}" alt="${foundProduct.name}">
+                            <div class="product-info">
+                                <h4>${foundProduct.name}</h4>
+                                <div class="brand">${foundProduct.brand}</div>
+                            </div>
+                        `;
+                        resultItem.addEventListener('click', function() {
+                            showProducts();
+                            setTimeout(() => {
+                                const productCard = document.querySelector(`[data-product-id="${foundProduct.id}"]`);
+                                if (productCard) {
+                                    productCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                    productCard.style.animation = 'pulse 2s';
+                                    setTimeout(() => {
+                                        productCard.style.animation = '';
+                                    }, 2000);
+                                }
+                            }, 100);
+                            searchInput.value = '';
+                            searchResults.classList.remove('active');
+                        });
+                        searchResults.appendChild(resultItem);
+                    } else {
+                        searchResults.classList.add('active');
+                        const noResults = document.createElement('div');
+                        noResults.className = 'search-result-item';
+                        noResults.textContent = 'No products found';
+                        searchResults.appendChild(noResults);
+                    }
+                } else {
+                    searchResults.classList.remove('active');
+                }
+            });
+
+            // Close search results when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                    searchResults.classList.remove('active');
+                }
+            });
+        }
+
+        // Rating functionality
+        function initRatings() {
+            document.querySelectorAll('.rating-stars').forEach(starsContainer => {
+                const productId = starsContainer.dataset.productId;
+                const stars = starsContainer.querySelectorAll('.star');
+                const ratingText = starsContainer.nextElementSibling;
+                
+                // Load saved rating
+                if (ratings[productId]) {
+                    setRating(stars, ratings[productId]);
+                    ratingText.textContent = `Your rating: ${ratings[productId]}/5`;
+                }
+
+                stars.forEach(star => {
+                    star.addEventListener('click', function() {
+                        const rating = parseInt(this.dataset.rating);
+                        setRating(stars, rating);
+                        ratings[productId] = rating;
+                        localStorage.setItem('ratings', JSON.stringify(ratings));
+                        ratingText.textContent = `Your rating: ${rating}/5`;
+                    });
+                });
+            });
+        }
+
+        function setRating(stars, rating) {
+            stars.forEach(star => {
+                const starRating = parseInt(star.dataset.rating);
+                if (starRating <= rating) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+        }
+
+        // Update counters
+        function updateCounters() {
+            wishlistCount.textContent = wishlist.length;
+            cartCount.textContent = cart.reduce((total, item) => total + item.quantity, 0);
+        }
+
+        // Wishlist functionality
+        function toggleWishlist(productId) {
+            const productCard = document.querySelector(`[data-product-id="${productId}"]`);
+            const wishlistBtn = productCard.querySelector('.wishlist-btn');
+            const heartIcon = wishlistBtn.querySelector('i');
+            
+            if (wishlist.includes(productId)) {
+                // Remove from wishlist
+                wishlist = wishlist.filter(id => id !== productId);
+                wishlistBtn.classList.remove('active');
+                heartIcon.classList.remove('fas');
+                heartIcon.classList.add('far');
+            } else {
+                // Add to wishlist
+                wishlist.push(productId);
+                wishlistBtn.classList.add('active');
+                heartIcon.classList.remove('far');
+                heartIcon.classList.add('fas');
+            }
+            
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+            updateCounters();
+            updateWishlistButtons();
+        }
+
+        function updateWishlistButtons() {
+            document.querySelectorAll('.product-card').forEach(card => {
+                const productId = card.dataset.productId;
+                const wishlistBtn = card.querySelector('.wishlist-btn');
+                const heartIcon = wishlistBtn.querySelector('i');
+                
+                if (wishlist.includes(productId)) {
+                    wishlistBtn.classList.add('active');
+                    heartIcon.classList.remove('far');
+                    heartIcon.classList.add('fas');
+                } else {
+                    wishlistBtn.classList.remove('active');
+                    heartIcon.classList.remove('fas');
+                    heartIcon.classList.add('far');
+                }
+            });
+        }
+
+        // Size selection functionality
+        function initSizeSelectors() {
+            document.querySelectorAll('.size-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const parentCard = this.closest('.product-card');
+                    const sizeOptions = parentCard.querySelectorAll('.size-option');
+                    
+                    // Remove selected class from all options
+                    sizeOptions.forEach(opt => opt.classList.remove('selected'));
+                    
+                    // Add selected class to clicked option
+                    this.classList.add('selected');
+                    
+                    // Update price
+                    const price = this.getAttribute('data-price');
+                    const priceElement = parentCard.querySelector('.price');
+                    priceElement.innerHTML = `${price}<span class="currency"> lei</span>`;
+                    
+                    // Update product data attribute
+                    parentCard.setAttribute('data-product-price', price);
+                });
+            });
+            
+            // Select first size option by default
+            document.querySelectorAll('.size-options').forEach(options => {
+                const firstOption = options.querySelector('.size-option');
+                if (firstOption) {
+                    firstOption.classList.add('selected');
+                    const parentCard = firstOption.closest('.product-card');
+                    const price = firstOption.getAttribute('data-price');
+                    parentCard.setAttribute('data-product-price', price);
+                }
+            });
+        }
+
+        // Cart functionality
+        function addToCart(productId) {
+            const productCard = document.querySelector(`[data-product-id="${productId}"]`);
+            const addToCartBtn = productCard.querySelector('.add-to-cart');
+            const selectedSize = productCard.querySelector('.size-option.selected');
+            
+            if (!selectedSize) {
+                alert('Please select a size first');
+                return;
+            }
+            
+            const productPrice = parseFloat(selectedSize.getAttribute('data-price'));
+            const productSize = selectedSize.getAttribute('data-size');
+            const productSprays = selectedSize.getAttribute('data-sprays');
+            const productName = productCard.getAttribute('data-product-name');
+            const productBrand = productCard.getAttribute('data-product-brand');
+            const productImage = productCard.querySelector('img').src;
+            
+            // Find existing product in cart
+            const existingProduct = cart.find(item => item.id === productId && item.size === productSize);
+            
+            if (existingProduct) {
+                existingProduct.quantity += 1;
+            } else {
+                cart.push({
+                    id: productId,
+                    name: productName,
+                    brand: productBrand,
+                    image: productImage,
+                    quantity: 1,
+                    price: productPrice,
+                    size: productSize,
+                    sprays: productSprays
+                });
+            }
+            
+            // Animation
+            addToCartBtn.classList.add('added');
+            addToCartBtn.innerHTML = '<i class="fas fa-check"></i> Added!';
+            
+            setTimeout(() => {
+                addToCartBtn.classList.remove('added');
+                addToCartBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> Add to Cart';
+            }, 2000);
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCounters();
+        }
+
+        function removeFromCart(productId, size) {
+            cart = cart.filter(item => !(item.id === productId && item.size === size));
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCounters();
+            showCartPage();
+        }
+
+        function updateQuantity(productId, size, change) {
+            const product = cart.find(item => item.id === productId && item.size === size);
+            if (product) {
+                product.quantity += change;
+                if (product.quantity <= 0) {
+                    removeFromCart(productId, size);
+                } else {
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    updateCounters();
+                    showCartPage();
+                }
+            }
+        }
+
+        // Page navigation
+        function showWishlistPage() {
+            mainContent.style.display = 'none';
+            cartPage.classList.remove('active');
+            wishlistPage.classList.add('active');
+            
+            const wishlistProducts = document.getElementById('wishlist-products');
+            const emptyWishlist = document.getElementById('empty-wishlist');
+            
+            if (wishlist.length === 0) {
+                wishlistProducts.style.display = 'none';
+                emptyWishlist.style.display = 'block';
+            } else {
+                wishlistProducts.style.display = 'grid';
+                emptyWishlist.style.display = 'none';
+                
+                wishlistProducts.innerHTML = '';
+                
+                wishlist.forEach(productId => {
+                    const originalCard = document.querySelector(`[data-product-id="${productId}"]`);
+                    if (originalCard) {
+                        const clonedCard = originalCard.cloneNode(true);
+                        const removeBtn = clonedCard.querySelector('.wishlist-btn');
+                        removeBtn.innerHTML = '<i class="fas fa-times"></i>';
+                        removeBtn.onclick = function() { 
+                            toggleWishlist(productId); 
+                            showWishlistPage();
+                        };
+                        wishlistProducts.appendChild(clonedCard);
+                    }
+                });
+            }
+        }
+
+        function showCartPage() {
+            mainContent.style.display = 'none';
+            wishlistPage.classList.remove('active');
+            cartPage.classList.add('active');
+            
+            const cartProducts = document.getElementById('cart-products');
+            const emptyCart = document.getElementById('empty-cart');
+            const cartTotal = document.getElementById('cart-total');
+            
+            if (cart.length === 0) {
+                cartProducts.style.display = 'none';
+                emptyCart.style.display = 'block';
+                cartTotal.style.display = 'none';
+            } else {
+                cartProducts.style.display = 'grid';
+                emptyCart.style.display = 'none';
+                cartTotal.style.display = 'block';
+                
+                cartProducts.innerHTML = '';
+                let totalAmount = 0;
+                
+                cart.forEach(item => {
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'product-card';
+                    cartItem.innerHTML = `
+                        <div class="product-img">
+                            <img src="${item.image}" alt="${item.name}">
+                        </div>
+                        <div class="product-info">
+                            <h3>${item.name}</h3>
+                            <div class="brand">${item.brand}</div>
+                            <div class="cart-product-info">
+                                <div class="price">${item.price * item.quantity}<span class="currency"> lei</span></div>
+                                <div class="size-info">${item.quantity}x ${item.size}ml (${item.sprays} sprays)</div>
+                            </div>
+                            <div class="cart-item-controls">
+                                <div class="quantity-controls">
+                                    <button class="quantity-btn" onclick="updateQuantity(${item.id}, '${item.size}', -1)">-</button>
+                                    <span class="quantity-display">${item.quantity}</span>
+                                    <button class="quantity-btn" onclick="updateQuantity(${item.id}, '${item.size}', 1)">+</button>
+                                </div>
+                                <button class="remove-from-cart" onclick="removeFromCart(${item.id}, '${item.size}')">Remove</button>
+                            </div>
+                        </div>
+                    `;
+                    cartProducts.appendChild(cartItem);
+                    totalAmount += item.price * item.quantity;
+                });
+                
+                document.getElementById('total-amount').textContent = totalAmount;
+            }
+        }
+
+        function showHomePage() {
+            mainContent.style.display = 'block';
+            wishlistPage.classList.remove('active');
+            cartPage.classList.remove('active');
+            hero.style.display = 'block';
+            productsSection.style.display = 'block';
+            contactsSection.style.display = 'none';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showProducts() {
+            mainContent.style.display = 'block';
+            wishlistPage.classList.remove('active');
+            cartPage.classList.remove('active');
+            hero.style.display = 'none';
+            productsSection.style.display = 'block';
+            contactsSection.style.display = 'none';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showContacts() {
+            mainContent.style.display = 'block';
+            wishlistPage.classList.remove('active');
+            cartPage.classList.remove('active');
+            hero.style.display = 'none';
+            productsSection.style.display = 'none';
+            contactsSection.style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Theme switching
+        function setTheme(theme) {
+            document.body.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            
+            // Update active theme button
+            document.querySelectorAll('.theme-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`.theme-btn[onclick="setTheme('${theme}')"]`).classList.add('active');
+        }
+
+        // Checkout functionality
+        function openCheckout() {
+            const checkoutModal = document.getElementById('checkoutModal');
+            checkoutModal.classList.add('active');
+            
+            // Calculate total
+            updateCheckoutSummary();
+            
+            // Reset to step 1
+            goToStep(1);
+        }
+
+        function closeCheckout() {
+            const checkoutModal = document.getElementById('checkoutModal');
+            checkoutModal.classList.remove('active');
+            
+            // Reset checkout state
+            currentStep = 1;
+            selectedPaymentMethod = '';
+            selectedCity = '';
+            selectedCountry = 'Romania';
+            orderData = {
+                paymentMethod: '',
+                country: '',
+                city: '',
+                address: '',
+                cardDetails: {},
+                total: 0
+            };
+            
+            // Clear selections
+            document.querySelectorAll('.payment-method').forEach(method => {
+                method.classList.remove('selected');
+            });
+            
+            // Reset forms
+            document.getElementById('address').value = '';
+            document.getElementById('cardNumber').value = '';
+            document.getElementById('expiryDate').value = '';
+            document.getElementById('cvv').value = '';
+            document.getElementById('cardName').value = '';
+            document.getElementById('city').value = '';
+            
+            // Reset delivery status
+            document.getElementById('deliveryStatus').style.display = 'none';
+        }
+
+        function goToStep(step) {
+            // Validate current step before proceeding
+            if (step > currentStep && !validateCurrentStep()) {
+                return;
+            }
+            
+            // Hide all steps
+            document.querySelectorAll('.checkout-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show target step
+            document.getElementById(`step${step}`).classList.add('active');
+            
+            // Update step indicators
+            document.querySelectorAll('.checkout-step').forEach(stepEl => {
+                stepEl.classList.remove('active');
+            });
+            
+            document.querySelector(`.checkout-step[data-step="${step}"]`).classList.add('active');
+            
+            currentStep = step;
+            
+            // Update UI based on step
+            updateStepUI();
+        }
+
+        function validateCurrentStep() {
+            switch(currentStep) {
+                case 1:
+                    if (!selectedPaymentMethod) {
+                        alert('Please select a payment method');
+                        return false;
+                    }
+                    break;
+                case 2:
+                    if (!selectedCity) {
+                        alert('Please select your city');
+                        return false;
+                    }
+                    const address = document.getElementById('address').value;
+                    if (!address.trim()) {
+                        alert('Please enter your full address');
+                        return false;
+                    }
+                    orderData.address = address;
+                    orderData.country = selectedCountry;
+                    orderData.city = selectedCity;
+                    
+                    // Check if delivery is available
+                    if (selectedCountry !== 'Romania') {
+                        alert('Sorry, we only deliver to Romania');
+                        return false;
+                    }
+                    break;
+                case 3:
+                    if (selectedPaymentMethod === 'card') {
+                        const cardNumber = document.getElementById('cardNumber').value;
+                        const expiryDate = document.getElementById('expiryDate').value;
+                        const cvv = document.getElementById('cvv').value;
+                        const cardName = document.getElementById('cardName').value;
+                        
+                        if (!cardNumber || !expiryDate || !cvv || !cardName) {
+                            alert('Please fill in all card details');
+                            return false;
+                        }
+                        
+                        // Simple validation for card number (just checking if it's 16 digits)
+                        if (!/^\d{16}$/.test(cardNumber.replace(/\s/g, ''))) {
+                            alert('Please enter a valid card number');
+                            return false;
+                        }
+                        
+                        orderData.cardDetails = {
+                            cardNumber: cardNumber,
+                            expiryDate: expiryDate,
+                            cvv: cvv,
+                            cardName: cardName
+                        };
+                    }
+                    break;
+            }
+            return true;
+        }
+
+        function updateStepUI() {
+            if (currentStep === 3) {
+                // Update payment title based on method
+                const paymentTitle = document.getElementById('paymentTitle');
+                if (selectedPaymentMethod === 'card') {
+                    paymentTitle.textContent = 'Card Payment';
+                    document.getElementById('cardPaymentForm').classList.add('active');
+                    document.getElementById('cashPaymentInfo').classList.remove('active');
+                    document.getElementById('payButton').textContent = 'Pay Now';
+                } else {
+                    paymentTitle.textContent = 'Cash on Delivery';
+                    document.getElementById('cardPaymentForm').classList.remove('active');
+                    document.getElementById('cashPaymentInfo').classList.add('active');
+                    document.getElementById('payButton').textContent = 'Place Order';
+                    
+                    // Update delivery address
+                    document.getElementById('deliveryAddress').textContent = 
+                        `${orderData.address}, ${selectedCity}, ${selectedCountry}`;
+                    document.getElementById('cashTotalAmount').textContent = orderData.total;
+                }
+            }
+        }
+
+        function updateCheckoutSummary() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let subtotal = 0;
+            
+            cart.forEach(item => {
+                subtotal += item.price * item.quantity;
+            });
+            
+            // Calculate shipping based on city
+            let shipping = 0;
+            if (selectedCity === 'Constanta') {
+                shipping = 0; // Free shipping for Constanta
+            } else if (selectedCountry === 'Romania') {
+                shipping = 7; // Standard shipping for other cities in Romania
+            } else {
+                shipping = 0; // No shipping outside Romania
+            }
+            
+            const total = subtotal + shipping;
+            orderData.total = total;
+            
+            document.getElementById('checkoutSubtotal').textContent = `${subtotal} lei`;
+            document.getElementById('checkoutShipping').textContent = `${shipping} lei`;
+            document.getElementById('checkoutTotal').textContent = `${total} lei`;
+        }
+
+        function processPayment() {
+            // In a real application, this would connect to a payment gateway
+            // For demo purposes, we'll simulate a successful payment
+            
+            // Generate a random order ID
+            const orderId = 'SHN-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random() * 9000);
+            document.getElementById('orderId').textContent = orderId;
+            
+            // Clear cart
+            localStorage.setItem('cart', JSON.stringify([]));
+            
+            // Update cart count
+            updateCounters();
+            
+            // Go to confirmation step
+            goToStep(4);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCounters();
+            updateWishlistButtons();
+            initSizeSelectors();
+            initSearch();
+            initRatings();
+            
+            // Load saved theme
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            setTheme(savedTheme);
+            
+            // Event listeners
+            wishlistIcon.addEventListener('click', function(e) {
+                e.preventDefault();
+                showWishlistPage();
+            });
+            
+            cartIcon.addEventListener('click', function(e) {
+                e.preventDefault();
+                showCartPage();
+            });
+
+            // Contact form
+            const contactForm = document.getElementById('contactForm');
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Thank you for your message! We will get back to you soon.');
+                this.reset();
+            });
+
+            // Payment method selection
+            document.querySelectorAll('.payment-method').forEach(method => {
+                method.addEventListener('click', function() {
+                    document.querySelectorAll('.payment-method').forEach(m => {
+                        m.classList.remove('selected');
+                    });
+                    this.classList.add('selected');
+                    selectedPaymentMethod = this.getAttribute('data-method');
+                    orderData.paymentMethod = selectedPaymentMethod;
+                    
+                    // Show/hide cash warning
+                    const cashWarning = document.getElementById('cashWarning');
+                    if (selectedPaymentMethod === 'cash') {
+                        cashWarning.style.display = 'block';
+                    } else {
+                        cashWarning.style.display = 'none';
+                    }
+                });
+            });
+            
+            // Country selection
+            const countrySelect = document.getElementById('country');
+            countrySelect.addEventListener('change', function() {
+                selectedCountry = this.value;
+                updateDeliveryStatus();
+                updateCheckoutSummary();
+            });
+            
+            // City selection
+            const citySelect = document.getElementById('city');
+            
+            // Populate city dropdown with Romanian cities
+            romanianCities.forEach(city => {
+                const option = document.createElement('option');
+                option.value = city;
+                option.textContent = city;
+                citySelect.appendChild(option);
+            });
+            
+            citySelect.addEventListener('change', function() {
+                selectedCity = this.value;
+                updateDeliveryStatus();
+                updateCheckoutSummary();
+                
+                // Enable/disable cash payment based on city
+                const cashMethod = document.querySelector('.payment-method[data-method="cash"]');
+                const cashWarning = document.getElementById('cashWarning');
+                
+                if (selectedCity === 'Constanta') {
+                    cashMethod.style.opacity = '1';
+                    cashMethod.style.cursor = 'pointer';
+                    cashWarning.textContent = 'Available only in Constanta';
+                } else {
+                    if (selectedPaymentMethod === 'cash') {
+                        // If cash was selected but city is not Constanta, deselect it
+                        cashMethod.classList.remove('selected');
+                        selectedPaymentMethod = '';
+                        document.querySelector('.payment-method[data-method="card"]').classList.add('selected');
+                        selectedPaymentMethod = 'card';
+                    }
+                    cashMethod.style.opacity = '0.5';
+                    cashMethod.style.cursor = 'not-allowed';
+                    cashWarning.textContent = 'Not available outside Constanta';
+                }
+            });
+            
+            // Address input
+            const addressInput = document.getElementById('address');
+            addressInput.addEventListener('input', function() {
+                updateDeliveryStatus();
+            });
+            
+            // Add pulse animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes pulse {
+                    0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); }
+                    70% { box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); }
+                    100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+        
+        function updateDeliveryStatus() {
+            const deliveryStatus = document.getElementById('deliveryStatus');
+            const continueButton = document.getElementById('continueToPayment');
+            
+            if (selectedCountry && selectedCity && document.getElementById('address').value) {
+                if (selectedCountry === 'Romania') {
+                    deliveryStatus.textContent = 'Delivery available';
+                    deliveryStatus.className = 'delivery-status delivery-available';
+                    deliveryStatus.style.display = 'block';
+                    continueButton.disabled = false;
+                } else {
+                    deliveryStatus.textContent = 'Not deliverable - We only ship to Romania';
+                    deliveryStatus.className = 'delivery-status delivery-not-available';
+                    deliveryStatus.style.display = 'block';
+                    continueButton.disabled = true;
+                }
+            } else {
+                deliveryStatus.style.display = 'none';
+                continueButton.disabled = true;
+            }
+        }
+    </script>
+</body>
+</html>
